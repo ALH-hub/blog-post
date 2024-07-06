@@ -13,7 +13,13 @@ export const getPosts = (req, res) => {
 };
 
 export const getPost = (req, res) => {
-  res.json('this is the post');
+  const q = 'SELECT * FROM posts WHERE id = ?';
+
+  db.query(q, [req.params.id], (err, data) => {
+    if (err) return req.send(err);
+
+    return res.status(200).json(data);
+  });
 };
 
 export const addPost = (req, res) => {
